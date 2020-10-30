@@ -1,0 +1,148 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Photos\3fbe2aea-2257-44f2-b3b1-3d8bacade89c.jpg" />
+    <None Remove="Photos\43de8b65-8b19-4b87-ae3c-df97e18bd461.jpg" />
+    <None Remove="Photos\46194927-ccda-432f-bc95-4820318c08c7.jpg" />
+    <None Remove="Photos\4cdd494c-e6e1-4af1-9e54-24a8e80ea2b4.jpg" />
+    <None Remove="Photos\5c20ca95-bb00-4ef1-8b85-c4b11e66eb54.jpg" />
+    <None Remove="Photos\6b33c074-65cf-4f2b-913a-1b2d4deb7050.jpg" />
+    <None Remove="Photos\7e80a4c8-0a8a-4593-a16f-2e257294a1f9.jpg" />
+    <None Remove="Photos\8d351bbb-f760-4b56-9d4e-e8d61619bf70.jpg" />
+    <None Remove="Photos\94878996-e040-44ef-a668-0bf17d966062.jpg" />
+    <None Remove="Photos\b2894002-0b7c-4f05-896a-856283012c87.jpg" />
+    <None Remove="Photos\bd29eefa-d330-4c7c-94c8-af52be385e78.jpg" />
+    <None Remove="Photos\c3a8b2c6-511e-43a9-b335-158d8cea0293.jpg" />
+    <None Remove="Photos\cc412f08-2a7b-4225-b659-07fdb168302d.jpg" />
+    <None Remove="Photos\cd139111-c82e-4bc8-9f7d-43a1059bfe73.jpg" />
+    <None Remove="Photos\dc3f39bf-d1da-465d-9ea4-935902c2e3d2.jpg" />
+    <None Remove="Photos\e0e32179-109c-4a8a-bf91-3d65ff83ca29.jpg" />
+    <None Remove="Photos\fdfe7329-e05c-41fb-a7c7-4f3226d28c49.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Photos\3fbe2aea-2257-44f2-b3b1-3d8bacade89c.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\43de8b65-8b19-4b87-ae3c-df97e18bd461.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\46194927-ccda-432f-bc95-4820318c08c7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\4cdd494c-e6e1-4af1-9e54-24a8e80ea2b4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\5c20ca95-bb00-4ef1-8b85-c4b11e66eb54.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\6b33c074-65cf-4f2b-913a-1b2d4deb7050.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\7e80a4c8-0a8a-4593-a16f-2e257294a1f9.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\8d351bbb-f760-4b56-9d4e-e8d61619bf70.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\94878996-e040-44ef-a668-0bf17d966062.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\b2894002-0b7c-4f05-896a-856283012c87.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\bd29eefa-d330-4c7c-94c8-af52be385e78.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\c3a8b2c6-511e-43a9-b335-158d8cea0293.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\cc412f08-2a7b-4225-b659-07fdb168302d.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\cd139111-c82e-4bc8-9f7d-43a1059bfe73.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\dc3f39bf-d1da-465d-9ea4-935902c2e3d2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\e0e32179-109c-4a8a-bf91-3d65ff83ca29.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Photos\fdfe7329-e05c-41fb-a7c7-4f3226d28c49.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0-rc.2.20475.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0-rc.2.20475.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\images\3fbe2aea-2257-44f2-b3b1-3d8bacade89c.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\43de8b65-8b19-4b87-ae3c-df97e18bd461.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\46194927-ccda-432f-bc95-4820318c08c7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\4cdd494c-e6e1-4af1-9e54-24a8e80ea2b4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\5c20ca95-bb00-4ef1-8b85-c4b11e66eb54.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\6b33c074-65cf-4f2b-913a-1b2d4deb7050.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\7e80a4c8-0a8a-4593-a16f-2e257294a1f9.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\8d351bbb-f760-4b56-9d4e-e8d61619bf70.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\94878996-e040-44ef-a668-0bf17d966062.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\b2894002-0b7c-4f05-896a-856283012c87.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\bd29eefa-d330-4c7c-94c8-af52be385e78.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\c3a8b2c6-511e-43a9-b335-158d8cea0293.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\cc412f08-2a7b-4225-b659-07fdb168302d.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\cd139111-c82e-4bc8-9f7d-43a1059bfe73.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\dc3f39bf-d1da-465d-9ea4-935902c2e3d2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\e0e32179-109c-4a8a-bf91-3d65ff83ca29.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\fdfe7329-e05c-41fb-a7c7-4f3226d28c49.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
