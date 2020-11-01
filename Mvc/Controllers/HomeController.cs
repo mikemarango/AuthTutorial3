@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Model;
 using Mvc.Models;
 using System;
@@ -9,12 +12,14 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Mime;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Mvc.Controllers
 {
+  [Authorize]
   public class HomeController : Controller
   {
     private readonly ILogger<HomeController> _logger;
@@ -28,6 +33,8 @@ namespace Mvc.Controllers
 
     public async Task<IActionResult> Index()
     {
+      await WriteOutIdentityInformation();
+
       var httpClient = _clientFactory.CreateClient("Api");
 
       var request = new HttpRequestMessage(HttpMethod.Get, "/images/");
@@ -159,10 +166,28 @@ namespace Mvc.Controllers
       return View();
     }
 
+    public async Task Logout()
+    {
+      await HttpContext.SignOutAsync("Cookies");
+      await HttpContext.SignOutAsync("OpenIdConnect");
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
       return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    public async Task WriteOutIdentityInformation()
+    {
+      var identityToken = await HttpContext.GetTokenAsync("id_token");
+
+      Debug.WriteLine($"Identity token: {identityToken}");
+
+      foreach (Claim claim in User.Claims)
+      {
+        Debug.WriteLine($"Claim type: {claim.Type} - Claim value: {claim.Value}");
+      }
     }
   }
 }
