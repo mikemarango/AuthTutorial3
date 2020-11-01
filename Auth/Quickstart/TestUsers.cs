@@ -24,7 +24,7 @@ namespace IdentityServerHost.Quickstart.UI
               new Claim("given_name", "Frank"),
               new Claim("family_name", "Underwood"),
               new Claim("address", "Main Road 1"),
-              new Claim("subscriptionLevel", "FreeUser"),
+              new Claim("role", "FreeUser"),
               //new Claim("country", "nl")
           }
         },
@@ -39,7 +39,7 @@ namespace IdentityServerHost.Quickstart.UI
               new Claim("given_name", "Claire"),
               new Claim("family_name", "Underwood"),
               new Claim("address", "Big Street 2"),
-              new Claim("subscriptionLevel", "PayingUser"),
+              new Claim("role", "PayingUser"),
               //new Claim("country", "be")
           }
         }

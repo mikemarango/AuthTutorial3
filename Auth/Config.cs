@@ -16,7 +16,7 @@ namespace Auth
         new IdentityResources.OpenId(),
         new IdentityResources.Profile(),
         new IdentityResources.Address(),
-        new IdentityResource("subscriptionLevel", "Your subscription(s)", new List<string> { "subscriptionLevel" })
+        new IdentityResource("roles", "Your subscription(s)", new List<string> { "role" })
       };
 
     public static IEnumerable<ApiScope> ApiScopes =>
@@ -57,7 +57,7 @@ namespace Auth
           PostLogoutRedirectUris = { "https://localhost:44341/signout-callback-oidc" },
 
           AllowOfflineAccess = true,
-          AllowedScopes = { "openid", "profile", "address", "scope2", "subscriptionLevel" }
+          AllowedScopes = { "openid", "profile", "address", "scope2", "roles" }
         },
       };
   }

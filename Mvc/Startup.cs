@@ -67,12 +67,12 @@ namespace Mvc
         options.ClientId = "mvc";
         options.ResponseType = "code";
         options.Scope.Add("address");
-        options.Scope.Add("subscriptionLevel");
+        options.Scope.Add("roles");
         options.ClaimActions.DeleteClaim("sid");
         options.ClaimActions.DeleteClaim("idp");
         options.ClaimActions.DeleteClaim("s_hash");
         options.ClaimActions.DeleteClaim("auth_time");
-        options.ClaimActions.MapUniqueJsonKey("subscriptionLevel", "subscriptionLevel");
+        options.ClaimActions.MapUniqueJsonKey("role", "role");
         options.SaveTokens = true;
         options.ClientSecret = "49C1A7E1-0C79-4A89-A3D6-A37998FB86B0";
         options.GetClaimsFromUserInfoEndpoint = true;
