@@ -24,6 +24,12 @@
             <li class="nav-item">
               <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddImage">Add Photo</a>
             </li>
+            @if (User.IsInRole("PayingUser"))
+            {
+              <li>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="OrderFrame">Order</a>
+              </li>
+            }
             @if (User.Identity.IsAuthenticated)
             {
               <li>

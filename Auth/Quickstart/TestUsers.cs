@@ -2,12 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using IdentityModel;
 using IdentityServer4.Test;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Text.Json;
-using IdentityServer4;
 
 namespace IdentityServerHost.Quickstart.UI
 {
@@ -27,8 +24,8 @@ namespace IdentityServerHost.Quickstart.UI
               new Claim("given_name", "Frank"),
               new Claim("family_name", "Underwood"),
               new Claim("address", "Main Road 1"),
-              new Claim("subscriptionlevel", "FreeUser"),
-              new Claim("country", "nl")
+              new Claim("subscriptionLevel", "FreeUser"),
+              //new Claim("country", "nl")
           }
         },
         new TestUser
@@ -42,8 +39,8 @@ namespace IdentityServerHost.Quickstart.UI
               new Claim("given_name", "Claire"),
               new Claim("family_name", "Underwood"),
               new Claim("address", "Big Street 2"),
-              new Claim("subscriptionlevel", "PayingUser"),
-              new Claim("country", "be")
+              new Claim("subscriptionLevel", "PayingUser"),
+              //new Claim("country", "be")
           }
         }
       };

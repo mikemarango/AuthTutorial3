@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -73,6 +74,35 @@ namespace Mvc.Controllers
       };
 
       return View(editImageViewModel);
+    }
+
+    [Authorize(Roles = "PayingUser")]
+    public async Task<IActionResult> OrderFrame()
+    {
+      var auth = _clientFactory.CreateClient("Auth");
+
+      var metadataResponse = await auth.GetDiscoveryDocumentAsync();
+
+      if (metadataResponse.IsError)
+        throw new Exception("Problem accessing the discovery endpoint",
+          metadataResponse.Exception);
+
+      var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+      var userInfoResponse = await auth.GetUserInfoAsync(new UserInfoRequest
+      {
+        Address = metadataResponse.UserInfoEndpoint,
+        Token = accessToken
+      });
+
+      if (userInfoResponse.IsError)
+        throw new Exception("Problem accessing the UserInfo endpoint.",
+          userInfoResponse.Exception);
+
+      var address = userInfoResponse.Claims.FirstOrDefault(c =>
+        c.Type.Equals("address"))?.Value;
+
+      return View(new OrderFrameViewModel(address));
     }
 
     [HttpPost]
