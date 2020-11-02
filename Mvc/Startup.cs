@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -38,6 +39,23 @@ namespace Mvc
         options.DefaultRequestHeaders.Clear();
         options.DefaultRequestHeaders.Add(HeaderNames.Accept, MediaTypeNames.Application.Json);
       });
+
+      services.AddAuthentication(options =>
+      {
+        options.DefaultScheme = "Cookies";
+        options.DefaultChallengeScheme = "oidc";
+      })
+      .AddCookie("Cookies")
+      .AddOpenIdConnect("oidc", options =>
+      {
+        options.Authority = "https://localhost:44300"; //has trailing slash + use pkce false
+        options.ClientId = "mvc";
+        options.ClientSecret = "49C1A7E1-0C79-4A89-A3D6-A37998FB86B0";
+        options.ResponseType = "code";
+        options.SaveTokens = true;
+        options.Scope.Add("profile");
+        options.Scope.Add("openid");
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +75,8 @@ namespace Mvc
       app.UseStaticFiles();
 
       app.UseRouting();
+
+      app.UseAuthentication();
 
       app.UseAuthorization();
 

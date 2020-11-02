@@ -47,6 +47,8 @@ namespace Auth
                     
                     AllowedGrantTypes = GrantTypes.Code,
 
+                    AlwaysIncludeUserClaimsInIdToken = true, // Because of Internet Explorer
+
                     RedirectUris = { "https://localhost:44341/signin-oidc" },
                     FrontChannelLogoutUri = "https://localhost:44341/signout-oidc",
                     PostLogoutRedirectUris = { "https://localhost:44341/signout-callback-oidc" },

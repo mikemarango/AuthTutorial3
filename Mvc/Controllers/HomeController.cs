@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Model;
 using Mvc.Models;
 using System;
@@ -15,6 +18,7 @@ using System.Threading.Tasks;
 
 namespace Mvc.Controllers
 {
+  [Authorize]
   public class HomeController : Controller
   {
     private readonly ILogger<HomeController> _logger;
@@ -152,6 +156,11 @@ namespace Mvc.Controllers
       response.EnsureSuccessStatusCode();
 
       return RedirectToAction("Index");
+    }
+
+    public IActionResult Logout()
+    {
+      return SignOut("Cookies", "oidc");
     }
 
     public IActionResult Privacy()
