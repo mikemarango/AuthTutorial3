@@ -19,7 +19,7 @@ namespace Api.Data
             Id = new Guid("25320c5e-f58a-4b1f-b63a-8ee07a840bdf"),
             Title = "An image by Frank",
             FileName = "3fbe2aea-2257-44f2-b3b1-3d8bacade89c.jpg",
-            OwnerId = "d860efca-22d9-47fd-8249-791ba61b07c7"
+            OwnerId = "d860efca-22d9-47fd-8249-791ba61b07c7",
         },
         new Image()
         {
@@ -75,7 +75,7 @@ namespace Api.Data
             Id = new Guid("3f41dc87-e8de-42ee-ac8d-355e4d3e1a2d"),
             Title = "An image by Claire",
             FileName = "b2894002-0b7c-4f05-896a-856283012c87.jpg",
-            OwnerId = "b7539694-97e7-4dfe-84da-b4256e1ff5c7"
+            OwnerId = "b7539694-97e7-4dfe-84da-b4256e1ff5c7",
         },
         new Image()
         {

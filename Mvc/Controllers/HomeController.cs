@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Mvc.Controllers
 {
-  [Authorize]
+  [Authorize]  // user is accessed via the identity token
   public class HomeController : Controller
   {
     private readonly ILogger<HomeController> _logger;
@@ -40,13 +40,17 @@ namespace Mvc.Controllers
       var response = await httpClient.SendAsync(
         request, HttpCompletionOption.ResponseHeadersRead);
 
-      response.EnsureSuccessStatusCode();
 
-      using var stream = await response.Content.ReadAsStreamAsync();
+      if (response.IsSuccessStatusCode)
+      {
+        using var stream = await response.Content.ReadAsStreamAsync();
 
-      var images = await JsonSerializer.DeserializeAsync<IList<ImageModel>>(stream);
+        var images = await JsonSerializer.DeserializeAsync<IList<ImageModel>>(stream);
 
-      return View(new GalleryIndexViewModel(images));
+        return View(new GalleryIndexViewModel(images)); 
+      }
+
+      return RedirectToAction("AccessDenied", "Auth");
     }
 
     public async Task<IActionResult> EditImage(Guid id)
@@ -130,6 +134,7 @@ namespace Mvc.Controllers
       return View(new OrderFrameViewModel(address));
     }
 
+    [Authorize(Roles = "Paying")]
     public IActionResult AddImage()
     {
       return View();
@@ -137,6 +142,7 @@ namespace Mvc.Controllers
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Paying")]
     public async Task<IActionResult> AddImage(AddImageViewModel addImageViewModel)
     {
       var httpClient = _clientFactory.CreateClient("Api");

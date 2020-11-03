@@ -1,10 +1,13 @@
 ﻿using Api.Data;
 using Api.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Model;
 using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,6 +16,8 @@ namespace Api.Controllers
 {
   [Route("[controller]")]
   [ApiController]
+  //[Authorize]
+  [Authorize(Policy = "ApiScope")] // User at api is accessed using the access_token
   public class ImagesController : ControllerBase
   {
     private readonly GalleryContext _context;
@@ -38,7 +43,10 @@ namespace Api.Controllers
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-      var images = await _context.Images.AsNoTracking().ToListAsync();
+      var ownerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+      var images = await _context.Images
+        .Where(i => i.OwnerId.Equals(ownerId)).AsNoTracking().ToListAsync();
 
       var imageModels = images.ConvertAll(image => CreateImageModel(image));
 
@@ -57,6 +65,7 @@ namespace Api.Controllers
 
 
     [HttpPost]
+    [Authorize(Roles = "Paying")]
     public async Task<IActionResult> Post([FromBody] AddImageModel addImageModel)
     {
       //string fileName = $"{Guid.NewGuid()}.jpg";
@@ -70,7 +79,7 @@ namespace Api.Controllers
         Id = Guid.NewGuid(),
         Title = addImageModel.Title,
         FileName = addImageModel.FileName,
-        OwnerId = string.Empty // To use auth provider to retrieve value
+        OwnerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
       };
 
       _context.Images.Add(image);

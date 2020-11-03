@@ -27,7 +27,10 @@ namespace Auth
             new ApiScope[]
             {
                 new ApiScope("scope1"),
-                new ApiScope("scope2"),
+                new ApiScope("api", "Api")
+                {
+                  UserClaims = new List<string> { "role" }
+                }
             };
 
         public static IEnumerable<Client> Clients =>
@@ -61,7 +64,7 @@ namespace Auth
                     PostLogoutRedirectUris = { "https://localhost:44341/signout-callback-oidc" },
 
                     AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "address", "roles", "scope2" }
+                    AllowedScopes = { "openid", "profile", "address", "roles", "api" }
                 },
             };
     }

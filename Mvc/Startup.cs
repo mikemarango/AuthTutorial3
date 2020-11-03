@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Model;
+using Mvc.HttpHandlers;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -39,12 +40,15 @@ namespace Mvc
 
       services.AddHttpContextAccessor();
 
+      services.AddTransient<BearerTokenHandler>();
+
       services.AddHttpClient("Api", options =>
       {
         options.BaseAddress = new Uri(Configuration["Url:Api"]);
         options.DefaultRequestHeaders.Clear();
         options.DefaultRequestHeaders.Add(HeaderNames.Accept, MediaTypeNames.Application.Json);
-      });
+      })
+      .AddHttpMessageHandler<BearerTokenHandler>();
 
       services.AddHttpClient("Auth", options =>
       {
@@ -71,6 +75,7 @@ namespace Mvc
         options.SaveTokens = true;
         options.Scope.Add("address");
         options.Scope.Add("roles");
+        options.Scope.Add("api");
         options.ClaimActions.DeleteClaim("address");
         options.ClaimActions.MapUniqueJsonKey("role", "role");
         options.TokenValidationParameters = new TokenValidationParameters
