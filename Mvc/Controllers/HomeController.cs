@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -98,6 +99,34 @@ namespace Mvc.Controllers
       response.EnsureSuccessStatusCode();
 
       return RedirectToAction("Index");
+    }
+
+    public async Task<IActionResult> OrderFrame()
+    {
+      var authority = _clientFactory.CreateClient("Auth");
+      var metaDataResponse = await authority.GetDiscoveryDocumentAsync();
+
+      if (metaDataResponse.IsError)
+        throw new Exception("Problem accessing the discovery endpoint.",
+          metaDataResponse.Exception);
+
+      var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+      var userInfoResponse = await authority.GetUserInfoAsync(new UserInfoRequest
+      {
+        Address = metaDataResponse.UserInfoEndpoint,
+        Token = accessToken
+      });
+
+      if (userInfoResponse.IsError)
+      {
+        throw new Exception("Problem accessing the UserInfo endpoint.",
+          userInfoResponse.Exception);
+      }
+
+      var address = userInfoResponse.Claims.FirstOrDefault(c => c.Type.Equals("address"))?.Value;
+
+      return View(new OrderFrameViewModel(address));
     }
 
     public IActionResult AddImage()

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +11,7 @@ using Microsoft.Net.Http.Headers;
 using Model;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
@@ -31,6 +33,8 @@ namespace Mvc
       services.AddControllersWithViews().AddJsonOptions(opts => 
         opts.JsonSerializerOptions.PropertyNamingPolicy = null);
 
+      JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+
       services.AddHttpContextAccessor();
 
       services.AddHttpClient("Api", options =>
@@ -38,6 +42,13 @@ namespace Mvc
         options.BaseAddress = new Uri(Configuration["Url:Api"]);
         options.DefaultRequestHeaders.Clear();
         options.DefaultRequestHeaders.Add(HeaderNames.Accept, MediaTypeNames.Application.Json);
+      });
+
+      services.AddHttpClient("Auth", options =>
+      {
+        options.BaseAddress = new Uri("https://localhost:44300");
+        options.DefaultRequestHeaders.Clear();
+        options.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
       });
 
       services.AddAuthentication(options =>
@@ -53,8 +64,9 @@ namespace Mvc
         options.ClientSecret = "49C1A7E1-0C79-4A89-A3D6-A37998FB86B0";
         options.ResponseType = "code";
         options.SaveTokens = true;
-        options.Scope.Add("profile");
-        options.Scope.Add("openid");
+        options.Scope.Add("address");
+        options.ClaimActions.DeleteClaim("address");
+
       });
     }
 
