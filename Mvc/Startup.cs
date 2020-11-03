@@ -1,3 +1,4 @@
+using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Model;
 using System;
@@ -65,8 +67,14 @@ namespace Mvc
         options.ResponseType = "code";
         options.SaveTokens = true;
         options.Scope.Add("address");
+        options.Scope.Add("roles");
         options.ClaimActions.DeleteClaim("address");
-
+        options.ClaimActions.MapUniqueJsonKey("role", "role");
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+          NameClaimType = "given_name",
+          RoleClaimType = "role" // subscription??
+        };
       });
     }
 
