@@ -58,7 +58,10 @@ namespace Mvc
         options.DefaultScheme = "Cookies";
         options.DefaultChallengeScheme = "oidc";
       })
-      .AddCookie("Cookies")
+      .AddCookie("Cookies", options =>
+      {
+        options.AccessDeniedPath = "/Auth/AccessDenied";
+      })
       .AddOpenIdConnect("oidc", options =>
       {
         options.Authority = "https://localhost:44300"; //has trailing slash + use pkce false
