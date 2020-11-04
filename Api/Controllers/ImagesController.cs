@@ -54,6 +54,7 @@ namespace Api.Controllers
     }
 
     [HttpGet("{id}")]
+    [Authorize("ImageRights")]
     public async Task<IActionResult> Get(Guid id)
     {
       var image = await _context.Images.FindAsync(id);
@@ -92,6 +93,7 @@ namespace Api.Controllers
 
 
     [HttpPut("{id}")]
+    [Authorize("ImageRights")]
     public async Task<IActionResult> Put(Guid id, [FromBody] UpdateImageModel updateImageModel)
     {
       var image = await _context.Images.FindAsync(id);
@@ -108,6 +110,7 @@ namespace Api.Controllers
 
 
     [HttpDelete("{id}")]
+    [Authorize("ImageRights")]
     public async Task<IActionResult> Delete(Guid id)
     {
       var image = await _context.Images.FindAsync(id);

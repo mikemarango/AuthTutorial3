@@ -1,4 +1,6 @@
+using Api.AuthHandlers;
 using Api.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,7 +33,8 @@ namespace Api
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllers();
-      //services.AddHttpContextAccessor();
+      services.AddHttpContextAccessor();
+      services.AddScoped<IAuthorizationHandler, OwnershipHandler>();
       services.AddAuthentication("Bearer")
         .AddJwtBearer("Bearer", options =>
         {
@@ -48,6 +51,10 @@ namespace Api
         {
           policy.RequireAuthenticatedUser();
           policy.RequireClaim("scope", "api");
+        });
+        options.AddPolicy("ImageRights", policy =>
+        {
+          policy.AddRequirements(new ImageOwnership());
         });
       });
       services.AddDbContext<GalleryContext>(options =>
