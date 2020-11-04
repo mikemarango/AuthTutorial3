@@ -90,6 +90,7 @@ namespace Mvc
         options.Scope.Add("api");
         options.Scope.Add("subscription");
         options.Scope.Add("country");
+        options.Scope.Add("offline_access");
         options.ClaimActions.DeleteClaim("address");
         options.ClaimActions.MapUniqueJsonKey("role", "role"); // required in claims identity
         options.ClaimActions.MapUniqueJsonKey("subscription", "subscription");

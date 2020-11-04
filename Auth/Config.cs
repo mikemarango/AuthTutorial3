@@ -68,6 +68,7 @@ namespace Api
                     ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
                     
                     AllowedGrantTypes = GrantTypes.Code,
+                    UpdateAccessTokenClaimsOnRefresh = true,
 
                     AlwaysIncludeUserClaimsInIdToken = true, // Because of Internet Explorer
 
