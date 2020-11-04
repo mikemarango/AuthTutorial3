@@ -20,6 +20,18 @@ namespace Auth
                   Name = "roles",
                   DisplayName = "Your role(s)",
                   UserClaims = new List<string> { "role" }
+                },
+                new IdentityResource()
+                {
+                  Name = "subscription",
+                  DisplayName = "Your subscription(s)",
+                  UserClaims = new List<string> { "subscription" }
+                },
+                new IdentityResource()
+                {
+                  Name = "country",
+                  DisplayName = "Your country",
+                  UserClaims = new List<string> { "country" }
                 }
             };
 
@@ -29,7 +41,7 @@ namespace Auth
                 new ApiScope("scope1"),
                 new ApiScope("api", "Api")
                 {
-                  UserClaims = new List<string> { "role" }
+                  UserClaims = new List<string> { "role", "subscription", "country" }
                 }
             };
 
@@ -64,7 +76,7 @@ namespace Auth
                     PostLogoutRedirectUris = { "https://localhost:44341/signout-callback-oidc" },
 
                     AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "address", "roles", "api" }
+                    AllowedScopes = { "openid", "profile", "address", "roles", "api", "subscription", "country" }
                 },
             };
     }

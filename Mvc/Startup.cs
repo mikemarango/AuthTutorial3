@@ -1,6 +1,7 @@
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,12 +34,23 @@ namespace Mvc
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddControllersWithViews().AddJsonOptions(opts => 
+      services.AddControllersWithViews().AddJsonOptions(opts =>
         opts.JsonSerializerOptions.PropertyNamingPolicy = null);
 
       JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
       services.AddHttpContextAccessor();
+
+      services.AddAuthorization(options =>
+      {
+        options.AddPolicy("CanOrder", builder =>
+        {
+          builder.RequireAuthenticatedUser();
+          builder.RequireClaim("country", "be");
+          builder.RequireClaim("subscription", "Paying");
+          //builder.RequireRole("role", "role"); // Used for roles
+        });
+      });
 
       services.AddTransient<BearerTokenHandler>();
 
@@ -76,8 +88,12 @@ namespace Mvc
         options.Scope.Add("address");
         options.Scope.Add("roles");
         options.Scope.Add("api");
+        options.Scope.Add("subscription");
+        options.Scope.Add("country");
         options.ClaimActions.DeleteClaim("address");
-        options.ClaimActions.MapUniqueJsonKey("role", "role");
+        options.ClaimActions.MapUniqueJsonKey("role", "role"); // required in claims identity
+        options.ClaimActions.MapUniqueJsonKey("subscription", "subscription");
+        options.ClaimActions.MapUniqueJsonKey("country", "country");
         options.TokenValidationParameters = new TokenValidationParameters
         {
           NameClaimType = "given_name",
