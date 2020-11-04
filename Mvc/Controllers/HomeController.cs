@@ -105,7 +105,7 @@ namespace Mvc.Controllers
       return RedirectToAction("Index");
     }
 
-    [Authorize(Roles = "Paying")]
+    [Authorize(Policy = "CanOrder")]
     public async Task<IActionResult> OrderFrame()
     {
       var authority = _clientFactory.CreateClient("Auth");
