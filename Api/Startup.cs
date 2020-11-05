@@ -45,6 +45,12 @@ namespace Api
             NameClaimType = ClaimTypes.NameIdentifier,
           };
         });
+        //.AddOAuth2Introspection("introspection", options =>
+        //{
+        //  options.Authority = "https://localhost:44300";
+        //  options.ClientId = "api";
+        //  options.ClientSecret = "511536EF-F270-4058-80CA-1C89C192F69A";
+        //});
       services.AddAuthorization(options =>
       {
         options.AddPolicy("ApiScope", policy =>

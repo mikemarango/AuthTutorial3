@@ -41,9 +41,19 @@ namespace Api
                 new ApiScope("scope1"),
                 new ApiScope("api", "Api")
                 {
-                  UserClaims = new List<string> { "role", "subscription", "country" }
+                  UserClaims = new List<string> { "role", "subscription", "country" },
                 }
             };
+
+    public static IEnumerable<ApiResource> ApiResources =>
+      new ApiResource[]
+      {
+            new ApiResource("secrets", "Api Secret")
+            {
+              Scopes = { "api" },
+              ApiSecrets = { new Secret("511536EF-F230-4058-80CA-1C69C198F69A".Sha256()) }
+            }
+      };
 
         public static IEnumerable<Client> Clients =>
             new Client[]
@@ -69,6 +79,7 @@ namespace Api
                     
                     AllowedGrantTypes = GrantTypes.Code,
                     UpdateAccessTokenClaimsOnRefresh = true,
+                    //AccessTokenType = AccessTokenType.Reference, // Introspection support
 
                     AlwaysIncludeUserClaimsInIdToken = true, // Because of Internet Explorer
 
