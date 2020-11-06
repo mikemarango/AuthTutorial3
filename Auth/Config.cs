@@ -45,15 +45,15 @@ namespace Api
                 }
             };
 
-    public static IEnumerable<ApiResource> ApiResources =>
-      new ApiResource[]
-      {
-            new ApiResource("secrets", "Api Secret")
-            {
-              Scopes = { "api" },
-              ApiSecrets = { new Secret("511536EF-F230-4058-80CA-1C69C198F69A".Sha256()) }
-            }
-      };
+        public static IEnumerable<ApiResource> ApiResources =>
+          new ApiResource[]
+          {
+                new ApiResource("secrets", "Api Secret")
+                {
+                  Scopes = { "api" },
+                  ApiSecrets = { new Secret("511536EF-F230-4058-80CA-1C69C198F69A".Sha256()) }
+                }
+          };
 
         public static IEnumerable<Client> Clients =>
             new Client[]
