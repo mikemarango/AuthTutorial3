@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using Auth.Data;
 using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
@@ -33,6 +34,11 @@ namespace Api
     {
       services.AddControllersWithViews().AddJsonOptions(options =>
         options.JsonSerializerOptions.PropertyNamingPolicy = null);
+
+      services.AddDbContext<IdentityContext>(options =>
+      {
+        options.UseSqlServer(Configuration.GetConnectionString("LocalSqlConnection"));
+      });
 
       var builder = services.AddIdentityServer(options =>
       {
