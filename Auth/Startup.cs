@@ -3,6 +3,7 @@
 
 
 using Auth.Data;
+using Auth.Services;
 using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
@@ -35,6 +36,8 @@ namespace Api
       services.AddControllersWithViews().AddJsonOptions(options =>
         options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
+      services.AddScoped<ILocalUserService, LocalUserServices>();
+
       services.AddDbContext<IdentityContext>(options =>
       {
         options.UseSqlServer(Configuration.GetConnectionString("LocalSqlConnection"));
@@ -47,10 +50,11 @@ namespace Api
         options.Events.RaiseFailureEvents = true;
         options.Events.RaiseSuccessEvents = true;
 
-              // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
-              options.EmitStaticAudienceClaim = true;
-      })
-          .AddTestUsers(TestUsers.Users);
+        // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
+        options.EmitStaticAudienceClaim = true;
+      });
+      builder.AddProfileService<LocalUserProfileService>();
+          //.AddTestUsers(TestUsers.Users);
 
       //// in-memory, code config
       //builder.AddInMemoryIdentityResources(Config.IdentityResources);
@@ -75,6 +79,8 @@ namespace Api
           builder.UseSqlServer(Configuration.GetConnectionString("LocalSqlConnection"),
           b => b.MigrationsAssembly("Auth"));
       });
+
+      builder.AddProfileService<LocalUserProfileService>();
 
       services.AddAuthentication()
           .AddGoogle(options =>
