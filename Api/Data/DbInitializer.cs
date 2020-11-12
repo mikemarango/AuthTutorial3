@@ -9,11 +9,10 @@ namespace Api.Data
   {
     public static void Initialize(GalleryContext context)
     {
-      if (context.Images.Any())
-        return;
-
-      var images = new Image[]
+      if (!context.Images.Any())
       {
+        var images = new Image[]
+        {
         new Image()
         {
             Id = new Guid("25320c5e-f58a-4b1f-b63a-8ee07a840bdf"),
@@ -112,10 +111,34 @@ namespace Api.Data
             FileName = "fdfe7329-e05c-41fb-a7c7-4f3226d28c49.jpg",
             OwnerId = "b7539694-97e7-4dfe-84da-b4256e1ff5c7"
         }
-      };
+        };
 
-      context.AddRange(images);
-      context.SaveChanges();
+        context.AddRange(images);
+        context.SaveChanges();
+      }
+
+      if (!context.UserProfiles.Any())
+      {
+        var userProfile = new UserProfile[]
+        {
+          new UserProfile()
+          {
+            Id = new Guid("7f8ce18c-d156-4c85-9575-56bf59938b0c"),
+            SubscriptionLevel = "FreeUser",
+            Subject = "d860efca-22d9-47fd-8249-791ba61b07c7"
+          },
+          new UserProfile()
+          {
+            Id = new Guid("38ff72e7-834a-4f5d-a0d1-acfaffad05c2"),
+            SubscriptionLevel = "PayingUser",
+            Subject = "b7539694-97e7-4dfe-84da-b4256e1ff5c7"
+          }
+        };
+
+        context.AddRange(userProfile);
+        context.SaveChanges();
+      }
+
     }
   }
 }

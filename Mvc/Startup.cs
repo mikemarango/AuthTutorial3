@@ -9,14 +9,17 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Model;
 using Mvc.HttpHandlers;
+using Mvc.PostConfigurationOptions;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Mime;
 using System.Threading.Tasks;
 
@@ -62,6 +65,14 @@ namespace Mvc
       })
       .AddHttpMessageHandler<BearerTokenHandler>();
 
+      services.AddHttpClient("ApiClient", options =>
+      {
+        options.BaseAddress = new Uri(Configuration["Url:Api"]);
+        options.DefaultRequestHeaders.Clear();
+        options.DefaultRequestHeaders.Add(HeaderNames.Accept, MediaTypeNames.Application.Json);
+      });
+
+
       services.AddHttpClient("Auth", options =>
       {
         options.BaseAddress = new Uri("https://localhost:44300");
@@ -101,6 +112,8 @@ namespace Mvc
           RoleClaimType = "role" // subscription??
         };
       });
+
+      services.AddSingleton<IPostConfigureOptions<OpenIdConnectOptions>, OidcConfigurationOption>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
